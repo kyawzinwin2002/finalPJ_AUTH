@@ -1,23 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import { TextInput } from "@mantine/core";
 import { PasswordInput } from "@mantine/core";
-import { useRegisterMutation } from '../redux/api/authApi';
-import { Link } from 'react-router-dom';
+import { useRegisterMutation } from "../redux/api/authApi";
+import { Link } from "react-router-dom";
 
 const Register = () => {
-  const [name,setName] = useState("");
-  const [email,setEmail] = useState("");
-  const [password,setPassword] = useState("");
-  const [confPass,setConfPass] = useState("")
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [password_confirmation, setPassword_confirmation] = useState("");
 
   const [register] = useRegisterMutation();
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const user = {name,email,password,confPass};
-    // const data = await register(user);
-    console.log(user)
-  }
+    const user = { name, email, password, password_confirmation };
+    const data = await register(user);
+    console.log(data);
+  };
 
   return (
     <div className=" h-screen w-screen flex flex-col justify-center items-center ">
@@ -28,14 +28,12 @@ const Register = () => {
           onChange={(e) => setName(e.target.value)}
           placeholder="Your name"
           label="Full name"
-          withAsterisk
         />
         <TextInput
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Your Email"
           label="Email"
-          withAsterisk
         />
         <PasswordInput
           value={password}
@@ -43,20 +41,18 @@ const Register = () => {
           placeholder="Password"
           label="Password"
           description="at least must be 8 letters"
-          withAsterisk
         />
         <PasswordInput
-          value={confPass}
-          onChange={(e) => setConfPass(e.target.value)}
+          value={password_confirmation}
+          onChange={(e) => setPassword_confirmation(e.target.value)}
           placeholder="Confirm Password"
           label="Confirm Password"
           description="at least must be 8 letters"
-          withAsterisk
         />
-        <h1 className=' flex gap-5 text-gray-500'>
+        <h1 className=" flex gap-5 text-gray-500">
           Already have an account?
           <Link to={"/login"}>
-            <span className=' text-blue-600'>Login</span>
+            <span className=" text-blue-600">Login</span>
           </Link>
         </h1>
         <button className=" bg-blue-600 px-6 py-2 rounded-md text-white">
@@ -65,6 +61,6 @@ const Register = () => {
       </form>
     </div>
   );
-}
+};
 
-export default Register
+export default Register;
