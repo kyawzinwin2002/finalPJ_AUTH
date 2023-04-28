@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TextInput } from "@mantine/core";
 import { PasswordInput } from "@mantine/core";
 import { useRegisterMutation } from "../redux/api/authApi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -11,11 +11,13 @@ const Register = () => {
   const [password_confirmation, setPassword_confirmation] = useState("");
 
   const [register] = useRegisterMutation();
+  const nav = useNavigate()
 
   const submitHandler = async (e) => {
     e.preventDefault();
     const user = { name, email, password, password_confirmation };
     const data = await register(user);
+    nav('/login')
     console.log(data);
   };
 
