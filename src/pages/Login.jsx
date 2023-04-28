@@ -4,6 +4,7 @@ import { PasswordInput } from "@mantine/core";
 import { Link, useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../redux/api/authApi';
 import { useDispatch } from 'react-redux';
+import { addUser } from '../redux/services/authSlice';
 
 
 
@@ -20,8 +21,8 @@ const Login = () => {
     if(data?.success){
       nav("/");
     }
-    dispatch(data.user,data.token)
-    console.log(data);
+    // console.log(data.token);
+    dispatch(addUser({user:data?.user,token:data?.token}))
   }
 
   return (
